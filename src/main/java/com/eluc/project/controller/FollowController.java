@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/follow")
-@CrossOrigin
 public class FollowController {
 
     @Autowired
