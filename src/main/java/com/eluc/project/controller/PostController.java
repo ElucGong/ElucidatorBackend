@@ -35,13 +35,9 @@ public class PostController {
     public PageInfo getPostByUser(@PathVariable("uid") int uid,
                                   @RequestParam("page") int page,
                                   @RequestParam("size") int size,
-                                  @RequestParam(value = "title", required = false) String title){
+                                  @RequestParam("title") String title){
         PageHelper.startPage(page, size);
-        List<Post> list;
-        if(title == null)
-            list = postMapper.getPostByUser(uid);
-        else
-            list = postMapper.getPostByUserAndTitle(uid, title);
+        List<Post> list = postMapper.getPostByUser(uid, title);
 
         return new PageInfo(list);
     }
@@ -50,13 +46,9 @@ public class PostController {
     public PageInfo getPostByTask(@PathVariable("tid") int tid,
                                   @RequestParam("page") int page,
                                   @RequestParam("size") int size,
-                                  @RequestParam(value = "title", required = false) String title){
+                                  @RequestParam("title") String title){
         PageHelper.startPage(page, size);
-        List<Post> list;
-        if(title == null)
-            list = postMapper.getPostByTask(tid);
-        else
-            list = postMapper.getPostByTaskAndTitle(tid, title);
+        List<Post> list = postMapper.getPostByTask(tid, title);
 
         return new PageInfo(list);
     }
@@ -78,6 +70,6 @@ public class PostController {
 
     @GetMapping("/statistic/tid/{tid}")
     public List<Post> getPostForStatistic(@PathVariable("tid") int tid){
-        return postMapper.getPostByTask(tid);
+        return postMapper.getPostByTask(tid, "");
     }
 }

@@ -19,13 +19,9 @@ public class UserController {
     @GetMapping("")
     public PageInfo getUser(@RequestParam("page") int page,
                             @RequestParam("size") int size,
-                            @RequestParam(value = "value", required = false) String name){
+                            @RequestParam("value") String name){
         PageHelper.startPage(page, size);
-        List<User> list;
-        if(name == null)
-            list = userMapper.getAllUser();
-        else
-            list = userMapper.getUser(name);
+        List<User> list = userMapper.getUser(name);
 
         return new PageInfo(list);
     }
@@ -64,13 +60,9 @@ public class UserController {
     public PageInfo getUserForStatistic(@PathVariable("tid") int tid,
                                         @RequestParam("page") int page,
                                         @RequestParam("size") int size,
-                                        @RequestParam(value = "value", required = false) String name){
+                                        @RequestParam("name") String name){
         PageHelper.startPage(page, size);
-        List<User> list;
-        if(name == null)
-            list = userMapper.getUserForStatistic(tid);
-        else
-            list = userMapper.getUserForStatisticByName(tid, name);
+        List<User> list = userMapper.getUserForStatistic(tid, name);
 
         return new PageInfo(list);
     }

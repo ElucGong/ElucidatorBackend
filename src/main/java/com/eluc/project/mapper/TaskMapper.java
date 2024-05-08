@@ -14,26 +14,14 @@ public interface TaskMapper {
     @Select("SELECT * FROM task WHERE id=#{id}")
     public Task getTaskById(int id);
 
-    @Select("SELECT * FROM task WHERE uid=#{uid}")
-    public List<Task> getTaskByUser(int uid);
-
     @Select("SELECT * FROM task WHERE uid=#{uid} AND LOCATE(#{title}, title)>0")
-    public List<Task> getTaskByUserAndTitle(int uid, String title);
-
-    @Select("SELECT task.id, task.title, task.description, task.media, " +
-            "task.cover, task.state, task.created_at, task.uid " +
-            "FROM task INNER JOIN follow ON task.id=follow.tid " +
-            "WHERE follow.uid=#{uid}")
-    public List<Task> getTaskByFollow(int uid);
-
-//    @Select("SELECT * FROM task WHERE id IN (SELECT tid FROM follow WHERE uid=#{uid})")
-//    public List<Task> getTaskByFollow(int uid);
+    public List<Task> getTaskByUser(int uid, String title);
 
     @Select("SELECT task.id, task.title, task.description, task.media, " +
             "task.cover, task.state, task.created_at, task.uid " +
             "FROM task INNER JOIN follow ON task.id=follow.tid " +
             "WHERE follow.uid=#{uid} AND LOCATE(#{title}, task.title)>0")
-    public List<Task> getTaskByFollowAndTitle(int uid, String title);
+    public List<Task> getTaskByFollow(int uid, String title);
 
     @Insert("INSERT INTO task (title, description, media, cover, uid) " +
             "VALUES (#{title}, #{description}, #{media}, #{cover}, #{uid})")

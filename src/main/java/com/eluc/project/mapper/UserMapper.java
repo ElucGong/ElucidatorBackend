@@ -11,9 +11,6 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Select("SELECT id, name, email, avatar, description, created_at, is_admin, is_active FROM user")
-    public List<User> getAllUser();
-
     @Select("SELECT id, name, email, avatar, description, created_at, is_admin, is_active FROM user " +
             "WHERE LOCATE(#{name}, name)>0 AND is_admin=false")
     public List<User> getUser(String name);
@@ -38,11 +35,6 @@ public interface UserMapper {
 
     @Select("SELECT user.id, user.name, user.email, user.avatar, user.description " +
             "FROM user INNER JOIN follow ON user.id=follow.uid " +
-            "WHERE follow.tid=#{tid}")
-    public List<User> getUserForStatistic(int tid);
-
-    @Select("SELECT user.id, user.name, user.email, user.avatar, user.description " +
-            "FROM user INNER JOIN follow ON user.id=follow.uid " +
             "WHERE follow.tid=#{tid} AND LOCATE(#{name}, user.name)>0")
-    public List<User> getUserForStatisticByName(int tid, String name);
+    public List<User> getUserForStatistic(int tid, String name);
 }

@@ -14,17 +14,11 @@ public interface PostMapper {
     @Select("SELECT * FROM post WHERE id=#{id}")
     public Post getPostById(int id);
 
-    @Select("SELECT * FROM post WHERE uid=#{uid}")
-    public List<Post>  getPostByUser(int uid);
-
     @Select("SELECT * FROM post WHERE uid=#{uid} AND LOCATE(#{title}, title)>0")
-    public List<Post>  getPostByUserAndTitle(int uid, String title);
-
-    @Select("SELECT * FROM post WHERE tid=#{tid}")
-    public List<Post>  getPostByTask(int tid);
+    public List<Post>  getPostByUser(int uid, String title);
 
     @Select("SELECT * FROM post WHERE tid=#{tid} AND LOCATE(#{title}, title)>0")
-    public List<Post>  getPostByTaskAndTitle(int tid, String title);
+    public List<Post>  getPostByTask(int tid, String title);
 
     @Insert("INSERT INTO post (title, description, media, cover, uid, tid) " +
             "VALUES (#{title}, #{description}, #{media}, #{cover}, #{uid}, #{tid})")

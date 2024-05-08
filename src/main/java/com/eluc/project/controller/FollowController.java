@@ -25,8 +25,6 @@ public class FollowController {
     @GetMapping("")
     public Follow getFollow(@RequestParam("uid") int uid,
                             @RequestParam("tid") int tid){
-        Follow res =  followMapper.getFollow(uid, tid);
-        System.out.println(res);
-        return res;
+        return followMapper.getFollow(uid, tid);
     }
 }

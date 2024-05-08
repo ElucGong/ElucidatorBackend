@@ -35,13 +35,9 @@ public class TaskController {
     public PageInfo getTaskByUser(@PathVariable("uid") int uid,
                                   @RequestParam("page") int page,
                                   @RequestParam("size") int size,
-                                  @RequestParam(value = "title", required = false) String title){
+                                  @RequestParam("title") String title){
         PageHelper.startPage(page, size);
-        List<Task> list;
-        if(title == null)
-            list = taskMapper.getTaskByUser(uid);
-        else
-            list = taskMapper.getTaskByUserAndTitle(uid, title);
+        List<Task> list = taskMapper.getTaskByUser(uid, title);
 
         return new PageInfo(list);
     }
@@ -50,13 +46,9 @@ public class TaskController {
     public PageInfo getTaskByFolllow(@PathVariable("uid") int uid,
                                      @RequestParam("page") int page,
                                      @RequestParam("size") int size,
-                                     @RequestParam(value = "title", required = false) String title){
+                                     @RequestParam("title") String title){
         PageHelper.startPage(page, size);
-        List<Task> list;
-        if(title == null)
-            list = taskMapper.getTaskByFollow(uid);
-        else
-            list = taskMapper.getTaskByFollowAndTitle(uid, title);
+        List<Task> list = taskMapper.getTaskByFollow(uid, title);
 
         return new PageInfo(list);
     }
